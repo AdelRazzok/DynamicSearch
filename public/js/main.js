@@ -38,3 +38,19 @@ async function getUsers() {
 }
 
 getUsers();
+
+function filterData(e) {
+	searchResults.innerHTML = '';
+
+	const searchString = e.target.value.toLowerCase().replace(/\s/g, '');
+	const filteredArr = dataArray.filter(el =>
+		el.name.first.toLowerCase().includes(searchString) ||
+		el.name.last.toLowerCase().includes(searchString) ||
+		`${el.name.last + el.name.first}`.toLowerCase().replace(/\s/g, '').includes(searchString) ||
+		`${el.name.first + el.name.last}`.toLowerCase().replace(/\s/g, '').includes(searchString)
+	);
+
+	createUserList(filteredArr);
+}
+
+searchInput.addEventListener('input', filterData);
